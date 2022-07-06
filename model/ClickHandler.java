@@ -34,5 +34,10 @@ public class ClickHandler extends MouseAdapter {
         int y = event.getY();
         // System.out.println(x + ", " + y);
         end = new Point(x, y);
+        int height = end.getY() - start.getY();
+        int width = end.getX() - end.getY();
+        paintCanvasBase.getGraphics2D().fillRect(start.getX(), start.getY(), width, height);
     }
+
+
 }
