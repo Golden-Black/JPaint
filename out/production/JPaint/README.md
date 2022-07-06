@@ -1,7 +1,8 @@
 # JPaint
 
 ### Sprint 1:
-#### -- Bugs Encountered: -
+#### -- Bugs Encountered: 
+1. (<b>SOLVED</b>) Width not properly shown. Error fixed by updating line 38 in ClickHandler.java from  "<b>commit dbd9c25</b>" (deprecated). 
 #### -- Extra Credit: N/A
 #### -- Missing Features: - 
 #### -- Miscellaneous: 
