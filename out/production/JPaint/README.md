@@ -1,4 +1,5 @@
 # JPaint
+#### Link to Repo: https://github.com/Golden-Black/JPaint.git 
 
 ### Sprint 1:
 #### -- Bugs Encountered: 

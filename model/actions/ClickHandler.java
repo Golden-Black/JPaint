@@ -1,18 +1,20 @@
-package model;
+package model.actions;
 
+import model.Point;
+import model.ShapeType;
+import model.interfaces.IShape;
 import model.persistence.ApplicationState;
 import view.interfaces.PaintCanvasBase;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.sql.SQLOutput;
 
 public class ClickHandler extends MouseAdapter {
     ApplicationState applicationState;
     PaintCanvasBase paintCanvasBase;
-    Point start;
-    Point end;
+    model.Point start;
+    model.Point end;
 
     public ClickHandler(ApplicationState applicationState, PaintCanvasBase paintCanvasBase) {
         this.applicationState = applicationState;
@@ -24,8 +26,7 @@ public class ClickHandler extends MouseAdapter {
     public void mousePressed(MouseEvent event){
         int x = event.getX();
         int y = event.getY();
-        // System.out.println(x + ", " + y);
-        start = new Point(x, y);
+        start = new model.Point(x, y);
     }
 
     // release the mouse to get the ending (x,y) coordinates
@@ -40,22 +41,41 @@ public class ClickHandler extends MouseAdapter {
         int width = end.getX() - start.getX();
 
         // The reference values are used for fillRect as starting coordinates
-        int referenceX = start.getX();
-        int referenceY = start.getY();
+        int refX = start.getX();
+        int refY = start.getY();
 
         // When drawing from bottom to top
         if(height < 0){
-            referenceY = end.getY();
+            refY = end.getY();
             height = -height;
         }
 
         // When drawing from right to left
         if(width < 0){
-            referenceX = end.getX();
+            refX = end.getX();
             width = -width;
         }
 
-        paintCanvasBase.getGraphics2D().fillRect(referenceX, referenceY, width, height);
+        IShape shape = null;
+
+        if(applicationState.getActiveShapeType().equals(ShapeType.RECTANGLE)) {
+            shape = new DrawRectangle(applicationState, paintCanvasBase, refX, refY, width, height);
+        }else if(applicationState.getActiveShapeType().equals(ShapeType.ELLIPSE)) {
+            shape = new DrawEclipse(applicationState, paintCanvasBase, refX, refY, width, height);
+        }else if (applicationState.getActiveShapeType().equals(ShapeType.TRIANGLE)){
+            shape = new DrawTriangle(applicationState, paintCanvasBase,
+                    start.getX(), start.getY(),
+                    2 * start.getX() - end.getX(), end.getY(),
+                    end.getX(), end.getY()
+                    );
+        }else throw new Error();
+
+        draw(shape);
+
+    }
+
+    private void draw(IShape shape) {
+        shape.drawShape();
     }
 
 }

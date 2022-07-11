@@ -2,9 +2,7 @@ package main;
 
 import controller.IJPaintController;
 import controller.JPaintController;
-import model.ClickHandler;
-import model.ShapeColor;
-import model.ShapeType;
+import model.actions.ClickHandler;
 import model.persistence.ApplicationState;
 import view.gui.Gui;
 import view.gui.GuiWindow;
@@ -13,9 +11,7 @@ import view.interfaces.IGuiWindow;
 import view.interfaces.PaintCanvasBase;
 import view.interfaces.IUiModule;
 
-import java.awt.*;
-import java.util.Collection;
-import java.util.EnumMap;
+import java.sql.SQLOutput;
 
 public class Main {
     public static void main(String[] args){
