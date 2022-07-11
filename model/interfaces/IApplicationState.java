@@ -25,4 +25,8 @@ public interface IApplicationState {
     ShapeShadingType getActiveShapeShadingType();
 
     MouseMode getActiveMouseMode();
+
+    void undo();
+
+    void redo();
 }

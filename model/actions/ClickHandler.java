@@ -1,5 +1,6 @@
 package model.actions;
 
+import model.CommandHistory;
 import model.Point;
 import model.ShapeType;
 import model.interfaces.IShape;
@@ -70,8 +71,8 @@ public class ClickHandler extends MouseAdapter {
                     );
         }else throw new Error();
 
+        CommandHistory.addShape(shape);
         draw(shape);
-
     }
 
     private void draw(IShape shape) {

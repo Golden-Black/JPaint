@@ -35,9 +35,11 @@ public class DrawTriangle implements IShape {
 
     @Override
     public void drawShape() {
-        paintCanvasBase.getGraphics2D().drawLine(v1x, v1y, v2x, v2y);
-        paintCanvasBase.getGraphics2D().drawLine(v1x, v1y, v3x, v3y);
-        paintCanvasBase.getGraphics2D().drawLine(v2x, v2y, v3x, v3y);
-        paintCanvasBase.getGraphics2D().fillPolygon(xCoordinates, yCoordinates, nPoint);
+        Graphics2D g = paintCanvasBase.getGraphics2D();
+        g.setColor(applicationState.getActivePrimaryColor().getColor());
+        g.drawLine(v1x, v1y, v2x, v2y);
+        g.drawLine(v1x, v1y, v3x, v3y);
+        g.drawLine(v2x, v2y, v3x, v3y);
+        g.fillPolygon(xCoordinates, yCoordinates, nPoint);
     }
 }

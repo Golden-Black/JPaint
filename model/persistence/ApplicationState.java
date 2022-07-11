@@ -1,9 +1,6 @@
 package model.persistence;
 
-import model.ShapeColor;
-import model.ShapeShadingType;
-import model.ShapeType;
-import model.MouseMode;
+import model.*;
 import model.dialogs.DialogProvider;
 import model.interfaces.IApplicationState;
 import model.interfaces.IDialogProvider;
@@ -73,6 +70,18 @@ public class ApplicationState implements IApplicationState {
     @Override
     public MouseMode getActiveMouseMode() {
         return activeMouseMode;
+    }
+
+    @Override
+    public void undo() {
+        CommandHistory.undo();
+        System.out.println("Undo Clicked.");
+    }
+
+    @Override
+    public void redo() {
+        CommandHistory.redo();
+        System.out.println("Redo Clicked.");
     }
 
     private void setDefaults() {

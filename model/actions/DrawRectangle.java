@@ -1,13 +1,14 @@
 package model.actions;
 
-import model.ShapeColor;
+import model.CommandHistory;
 import model.interfaces.IShape;
+import model.interfaces.IUndoable;
 import model.persistence.ApplicationState;
 import view.interfaces.PaintCanvasBase;
 
 import java.awt.*;
 
-public class DrawRectangle implements IShape {
+public class DrawRectangle implements IShape, IUndoable {
     ApplicationState applicationState;
     PaintCanvasBase paintCanvasBase;
     int referenceX;
@@ -30,5 +31,18 @@ public class DrawRectangle implements IShape {
         Graphics2D g = paintCanvasBase.getGraphics2D();
         g.setColor(applicationState.getActivePrimaryColor().getColor());
         g.fillRect(referenceX, referenceY, width, height);
+
+        CommandHistory.add(this);
     }
+
+    @Override
+    public void undo() {
+        paintCanvasBase.repaint();
+    }
+
+    @Override
+    public void redo() {
+        drawShape();
+    }
+
 }

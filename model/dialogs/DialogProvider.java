@@ -23,6 +23,7 @@ public class DialogProvider implements IDialogProvider {
         chooseSecondaryColorDialog = new ChooseSecondaryColorDialog(this.applicationState);
         chooseShadingTypeDialog = new ChooseShadingTypeDialog(this.applicationState);
         chooseStartAndEndPointModeDialog = new ChooseStartAndEndPointModeDialog(this.applicationState);
+
     }
 
     @Override
