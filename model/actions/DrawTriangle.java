@@ -1,6 +1,5 @@
 package model.actions;
 
-import model.ShapeColor;
 import model.interfaces.IShape;
 import model.persistence.ApplicationState;
 import view.interfaces.PaintCanvasBase;

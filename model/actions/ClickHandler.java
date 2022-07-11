@@ -35,7 +35,6 @@ public class ClickHandler extends MouseAdapter {
     public void mouseReleased(MouseEvent event){
         int x = event.getX();
         int y = event.getY();
-        // System.out.println(x + ", " + y);
         end = new Point(x, y);
 
         int height = end.getY() - start.getY();
