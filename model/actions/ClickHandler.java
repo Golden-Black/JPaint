@@ -63,11 +63,9 @@ public class ClickHandler extends MouseAdapter {
         }else if(applicationState.getActiveShapeType().equals(ShapeType.ELLIPSE)) {
             shape = new DrawEclipse(applicationState, paintCanvasBase, refX, refY, width, height);
         }else if (applicationState.getActiveShapeType().equals(ShapeType.TRIANGLE)){
-            shape = new DrawTriangle(applicationState, paintCanvasBase,
-                    start.getX(), start.getY(),
-                    2 * start.getX() - end.getX(), end.getY(),
-                    end.getX(), end.getY()
-                    );
+            int[] xCoordinates = new int[]{start.getX(), 2 * start.getX() - end.getX(), end.getX()};
+            int[] yCoordinates = new int[]{start.getY(), end.getY(), end.getY()};
+            shape = new DrawTriangle(applicationState, paintCanvasBase, xCoordinates, yCoordinates);
         }else throw new Error();
 
         CommandHistory.addShape(shape);
