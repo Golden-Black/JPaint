@@ -1,13 +1,12 @@
 package model.actions;
 
-import model.CommandHistory;
 import model.Point;
+import model.ShapeShadingType;
 import model.ShapeType;
 import model.interfaces.IShape;
 import model.persistence.ApplicationState;
 import view.interfaces.PaintCanvasBase;
 
-import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -68,7 +67,6 @@ public class ClickHandler extends MouseAdapter {
             shape = new DrawTriangle(applicationState, paintCanvasBase, xCoordinates, yCoordinates);
         }else throw new Error();
 
-        CommandHistory.addShape(shape);
         draw(shape);
     }
 
