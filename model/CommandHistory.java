@@ -2,6 +2,7 @@ package model;
 
 import model.interfaces.IShape;
 import model.interfaces.IUndoable;
+import view.interfaces.PaintCanvasBase;
 
 import java.awt.*;
 import java.util.Stack;
@@ -20,6 +21,8 @@ public class CommandHistory {
 	public static void addShape(IShape shape){
 		onShapeList.add(shape);
 	}
+
+
 	
 	public static boolean undo() {
 		boolean result = !undoStack.empty();

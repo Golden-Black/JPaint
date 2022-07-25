@@ -26,7 +26,7 @@ public interface IApplicationState {
 
     MouseMode getActiveMouseMode();
 
-    void undo();
+    /*void undo();
 
-    void redo();
+    void redo();*/
 }

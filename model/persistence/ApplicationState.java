@@ -72,7 +72,7 @@ public class ApplicationState implements IApplicationState {
         return activeMouseMode;
     }
 
-    @Override
+    /*@Override
     public void undo() {
         CommandHistory.undo();
         System.out.println("Undo Clicked.");
@@ -82,7 +82,7 @@ public class ApplicationState implements IApplicationState {
     public void redo() {
         CommandHistory.redo();
         System.out.println("Redo Clicked.");
-    }
+    }*/
 
     private void setDefaults() {
         activeShapeType = ShapeType.RECTANGLE;
