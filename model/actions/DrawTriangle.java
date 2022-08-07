@@ -2,6 +2,7 @@ package model.actions;
 
 import model.CommandHistory;
 import model.ShapeShadingType;
+import model.interfaces.IDrawShape;
 import model.interfaces.IShape;
 import model.interfaces.IUndoable;
 import model.persistence.ApplicationState;
@@ -9,7 +10,7 @@ import view.interfaces.PaintCanvasBase;
 
 import java.awt.*;
 
-public class DrawTriangle implements IShape, IUndoable {
+public class DrawTriangle implements IDrawShape, IUndoable {
     private final int[] xCoordinates;
     private final int[] yCoordinates;
     ApplicationState applicationState;

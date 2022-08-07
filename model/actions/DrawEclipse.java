@@ -2,14 +2,14 @@ package model.actions;
 
 import model.CommandHistory;
 import model.ShapeShadingType;
-import model.interfaces.IShape;
+import model.interfaces.IDrawShape;
 import model.interfaces.IUndoable;
 import model.persistence.ApplicationState;
 import view.interfaces.PaintCanvasBase;
 
 import java.awt.*;
 
-public class DrawEclipse implements IShape, IUndoable {
+public class DrawEclipse implements IDrawShape, IUndoable {
     ApplicationState applicationState;
     PaintCanvasBase paintCanvasBase;
     int referenceX;

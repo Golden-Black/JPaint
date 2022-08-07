@@ -1,7 +1,10 @@
 package model.actions;
 
+import model.CommandHandler;
+import model.MouseMode;
 import model.Point;
 import model.ShapeType;
+import model.interfaces.ICommand;
 import model.interfaces.IShape;
 import model.persistence.ApplicationState;
 import view.interfaces.PaintCanvasBase;
@@ -14,6 +17,7 @@ public class ClickHandler extends MouseAdapter {
     PaintCanvasBase paintCanvasBase;
     model.Point start;
     model.Point end;
+    CommandHandler commandHandler = new CommandHandler();
 
     public ClickHandler(ApplicationState applicationState, PaintCanvasBase paintCanvasBase) {
         this.applicationState = applicationState;
@@ -54,23 +58,17 @@ public class ClickHandler extends MouseAdapter {
             width = -width;
         }
 
-        IShape shape = null;
+        int[] xCoordinates = new int[]{this.start.getX(), 2 * this.start.getX() - this.end.getX(), this.end.getX()};
+        int[] yCoordinates = new int[]{this.start.getY(), this.end.getY(), this.end.getY()};
 
-        if(applicationState.getActiveShapeType().equals(ShapeType.RECTANGLE)) {
-            shape = new DrawRectangle(applicationState, paintCanvasBase, refX, refY, width, height);
-        }else if(applicationState.getActiveShapeType().equals(ShapeType.ELLIPSE)) {
-            shape = new DrawEclipse(applicationState, paintCanvasBase, refX, refY, width, height);
-        }else if (applicationState.getActiveShapeType().equals(ShapeType.TRIANGLE)){
-            int[] xCoordinates = new int[]{start.getX(), 2 * start.getX() - end.getX(), end.getX()};
-            int[] yCoordinates = new int[]{start.getY(), end.getY(), end.getY()};
-            shape = new DrawTriangle(applicationState, paintCanvasBase, xCoordinates, yCoordinates);
-        }else throw new Error();
+        ICommand command = null;
 
-        draw(shape);
-    }
+        if(applicationState.getActiveMouseMode().equals(MouseMode.DRAW)){
+            command = new DrawCommand(applicationState, paintCanvasBase, refX, refY, width, height, xCoordinates, yCoordinates);
+        }
 
-    private void draw(IShape shape) {
-        shape.drawShape();
+        assert command != null;
+        commandHandler.process(command);
     }
 
 }
