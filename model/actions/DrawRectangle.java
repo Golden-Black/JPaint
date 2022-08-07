@@ -1,6 +1,7 @@
 package model.actions;
 
 import model.CommandHistory;
+import model.ShapeShadingType;
 import model.interfaces.IShape;
 import model.interfaces.IUndoable;
 import model.persistence.ApplicationState;
@@ -29,8 +30,26 @@ public class DrawRectangle implements IShape, IUndoable {
     @Override
     public void drawShape() {
         Graphics2D g = paintCanvasBase.getGraphics2D();
-        g.setColor(applicationState.getActivePrimaryColor().getColor());
-        g.fillRect(referenceX, referenceY, width, height);
+
+        if(applicationState.getActiveShapeShadingType().equals(ShapeShadingType.FILLED_IN)){
+            g.setColor(applicationState.getActivePrimaryColor().getColor());
+            g.fillRect(referenceX, referenceY, width, height);
+
+        }else if(applicationState.getActiveShapeShadingType().equals(ShapeShadingType.OUTLINE)){
+            Stroke stroke = new BasicStroke(4);
+            g.setStroke(stroke);
+            g.setColor(applicationState.getActiveSecondaryColor().getColor());
+            g.drawRect(referenceX, referenceY, width, height);
+
+        }else if(applicationState.getActiveShapeShadingType().equals(ShapeShadingType.OUTLINE_AND_FILLED_IN)){
+            g.setColor(applicationState.getActivePrimaryColor().getColor());
+            g.fillRect(referenceX, referenceY, width, height);
+
+            Stroke stroke = new BasicStroke(4);
+            g.setStroke(stroke);
+            g.setColor(applicationState.getActiveSecondaryColor().getColor());
+            g.drawRect(referenceX, referenceY, width, height);
+        }else throw new Error();
 
         CommandHistory.add(this);
     }
