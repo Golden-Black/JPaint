@@ -1,16 +1,15 @@
 package model;
 
-import model.interfaces.ISelectedObserver;
-import model.interfaces.ISelectedSubjects;
+import model.interfaces.ISelectedObservers;
 import model.interfaces.IShape;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShapeList implements ISelectedSubjects {
-    private static List<Shape> existingShapes = new ArrayList<>(); // for selecting
-    private static List<IShape> iShapeList = new ArrayList<>(); // for drawing
+public class ShapeList implements ISelectedObservers {
+    private static final List<Shape> existingShapes = new ArrayList<>(); // for selecting
+    private static final List<IShape> iShapeList = new ArrayList<>(); // for drawing
 
     List<Shape> selectedShapes = new ArrayList<>(); // for selecting
     private static final List<IShape> iShapeSelected = new ArrayList<>(); // for drawing

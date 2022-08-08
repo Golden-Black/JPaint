@@ -16,7 +16,7 @@
    Error fixed by creating and passing the vertices arrays in ClickHandler.java instead of creating & using them in DrawTriangle.java from "commit 658cb2e" (deprecated).
 #### -- Extra Credit: N/A
 #### -- Missing Features: -
-1. Select a shape
+1. Select a shape (Solved)
 2. Move a shape
 
 #### -- Miscellaneous:
@@ -24,8 +24,11 @@
 
 ### Sprint 3:
 #### -- Bugs Encountered:
-1. 
+1. Click Shape is buggy and it will sometimes select the shape units
 #### -- Extra Credit: N/A
 #### -- Missing Features: -
+1. Delete: Decided to use another command pattern on Delete but ended up running out of time
+2. Undo/Redo
 #### -- Miscellaneous:
 1. Transitioned back to main branch from individual branch (ziyan-new-branch) following the announcement "Project Check-ins 3 and 4" posted on July 28th in D2L;
+2. Didn't feel good last week and the overall progress slowed down because of that.

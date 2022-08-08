@@ -1,18 +1,16 @@
 package model.drawShapes;
 
-import model.CommandHistory;
 import model.ShapeList;
 import model.ShapeShadingType;
-import model.interfaces.ISelectedObserver;
+import model.interfaces.ISelectedSubjects;
 import model.interfaces.IShape;
-import model.interfaces.IUndoable;
 import model.persistence.ApplicationState;
 import view.interfaces.PaintCanvasBase;
 
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 
-public class CreateEclipse implements IShape, ISelectedObserver {
+public class CreateEclipse implements IShape, ISelectedSubjects {
     ApplicationState applicationState;
     PaintCanvasBase paintCanvasBase;
     int referenceX;

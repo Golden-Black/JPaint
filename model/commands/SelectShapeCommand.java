@@ -39,8 +39,11 @@ public class SelectShapeCommand implements ICommand {
         // check collision
         if(shapeList.getExistingShapes().size() != 0){
 
-            // clear the seleted shapes from last Select command
+            // clear the selected shapes from last Select command
             shapeList.getSelectedShapes().clear();
+            for(int i = 0; i < shapeList.getSelectedShapes().size(); ++i){
+                shapeList.removeObserver(shapeList.getIShapeList().get(i));
+            }
 
             for(int i = 0; i < shapeList.getExistingShapes().size(); ++i){
 
