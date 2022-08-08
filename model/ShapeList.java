@@ -1,17 +1,21 @@
 package model;
 
+import model.interfaces.ISelectedObserver;
+import model.interfaces.ISelectedSubjects;
 import model.interfaces.IShape;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShapeList {
+public class ShapeList implements ISelectedSubjects {
     private static List<Shape> existingShapes = new ArrayList<>(); // for selecting
     private static List<IShape> iShapeList = new ArrayList<>(); // for drawing
 
     List<Shape> selectedShapes = new ArrayList<>(); // for selecting
     private static final List<IShape> iShapeSelected = new ArrayList<>(); // for drawing
+
+    private final List<IShape> selectedObservers = new ArrayList<>();// observer
 
     List<Shape> undoneShapes = new ArrayList<>();
 
@@ -70,5 +74,21 @@ public class ShapeList {
 
     public static void delete(){
 
+    }
+
+    @Override
+    public void registerObserver(IShape observer) {
+        selectedObservers.add(observer);
+    }
+
+    @Override
+    public void removeObserver(IShape observer) {
+        selectedObservers.remove(observer);
+    }
+
+    public void notifySelectedObservers() {
+        for (IShape sObserver : selectedObservers) {
+            sObserver.update();
+        }
     }
 }

@@ -3,6 +3,7 @@ package model.drawShapes;
 import model.CommandHistory;
 import model.ShapeList;
 import model.ShapeShadingType;
+import model.interfaces.ISelectedObserver;
 import model.interfaces.IShape;
 import model.interfaces.IUndoable;
 import model.persistence.ApplicationState;
@@ -10,7 +11,7 @@ import view.interfaces.PaintCanvasBase;
 
 import java.awt.*;
 
-public class CreateTriangle implements IShape, IUndoable {
+public class CreateTriangle implements IShape, IUndoable, ISelectedObserver {
     private final int[] xCoordinates;
     private final int[] yCoordinates;
     ApplicationState applicationState;
@@ -27,10 +28,11 @@ public class CreateTriangle implements IShape, IUndoable {
         this.paintArea = paintArea;
         this.shapeList = shapeList;
     }
+    Graphics2D g;
 
     @Override
     public void drawShape() {
-        Graphics2D g = paintCanvasBase.getGraphics2D();
+        g = paintCanvasBase.getGraphics2D();
         g.setColor(applicationState.getActivePrimaryColor().getColor());
         Polygon t = new Polygon(xCoordinates, yCoordinates, 3);
         paintArea = t;
@@ -64,13 +66,21 @@ public class CreateTriangle implements IShape, IUndoable {
     @Override
     public void pasteShape() {
         for(int i = 0; i < xCoordinates.length; ++i){
-            xCoordinates[i] += 1;
-            yCoordinates[i] += 1;
+            xCoordinates[i] += 100;
         }
         drawShape();
         Polygon t = new Polygon(xCoordinates, yCoordinates, 3);
         paintArea = t;
         shapeList.addToExisting(paintArea);
+    }
+
+    @Override
+    public void update() {
+        Stroke stroke = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 1, new float[]{9}, 0);
+        g.setStroke(stroke);
+        g.setColor(Color.BLACK);
+        Polygon t = new Polygon(xCoordinates, yCoordinates, 3);
+        g.drawPolygon(t);
     }
 
     @Override

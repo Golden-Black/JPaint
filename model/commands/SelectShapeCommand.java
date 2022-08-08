@@ -52,15 +52,13 @@ public class SelectShapeCommand implements ICommand {
                 !shapeList.getSelectedShapes().contains(shapeList.getExistingShapes().get(i))){
                     shapeList.addSelected(shapeList.getExistingShapes().get(i));
                     shapeList.addIShapeSelect(shapeList.getIShapeList().get(i));
+                    shapeList.registerObserver(shapeList.getIShapeList().get(i));
 
                     System.out.println("Shape Selected!");
                 }
-                // Selected Shape
-//        Stroke stroke = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 1, new float[]{9}, 0);
-//        graphics2d.setStroke(stroke);
-//        graphics2d.setColor(Color.BLACK);
-//        graphics2d.drawRect(7, 8, 210, 410);
             }
+
+            shapeList.notifySelectedObservers();
 
 
         }
