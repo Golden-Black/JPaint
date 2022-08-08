@@ -1,11 +1,7 @@
-package model.actions;
+package model.commands;
 
-import model.CommandHandler;
-import model.MouseMode;
-import model.Point;
-import model.ShapeType;
+import model.*;
 import model.interfaces.ICommand;
-import model.interfaces.IShape;
 import model.persistence.ApplicationState;
 import view.interfaces.PaintCanvasBase;
 
@@ -18,6 +14,7 @@ public class ClickHandler extends MouseAdapter {
     model.Point start;
     model.Point end;
     CommandHandler commandHandler = new CommandHandler();
+    ShapeList shapeList = new ShapeList();
 
     public ClickHandler(ApplicationState applicationState, PaintCanvasBase paintCanvasBase) {
         this.applicationState = applicationState;
@@ -64,7 +61,11 @@ public class ClickHandler extends MouseAdapter {
         ICommand command = null;
 
         if(applicationState.getActiveMouseMode().equals(MouseMode.DRAW)){
-            command = new DrawCommand(applicationState, paintCanvasBase, refX, refY, width, height, xCoordinates, yCoordinates);
+            command = new CreateShapeCommand(applicationState, paintCanvasBase, refX, refY, width, height, xCoordinates, yCoordinates, shapeList);
+        }else if(applicationState.getActiveMouseMode().equals(MouseMode.SELECT)){
+            command = new SelectShapeCommand(applicationState, paintCanvasBase, refX, refY, width, height, shapeList);
+        }else if(applicationState.getActiveMouseMode().equals(MouseMode.MOVE)){
+            System.out.println("Move a shape! :D");
         }
 
         assert command != null;

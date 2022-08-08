@@ -1,8 +1,7 @@
-package model.actions;
+package model.drawShapes;
 
 import model.CommandHistory;
 import model.ShapeShadingType;
-import model.interfaces.IDrawShape;
 import model.interfaces.IShape;
 import model.interfaces.IUndoable;
 import model.persistence.ApplicationState;
@@ -10,17 +9,20 @@ import view.interfaces.PaintCanvasBase;
 
 import java.awt.*;
 
-public class DrawTriangle implements IDrawShape, IUndoable {
+public class CreateTriangle implements IShape, IUndoable {
     private final int[] xCoordinates;
     private final int[] yCoordinates;
     ApplicationState applicationState;
     PaintCanvasBase paintCanvasBase;
+    Shape paintArea;
 
-    public DrawTriangle(ApplicationState applicationState, PaintCanvasBase paintCanvasBase, int[] xCoordinates, int[] yCoordinates) {
+    public CreateTriangle(ApplicationState applicationState, PaintCanvasBase paintCanvasBase,
+                          int[] xCoordinates, int[] yCoordinates, Shape paintArea) {
         this.applicationState = applicationState;
         this.paintCanvasBase = paintCanvasBase;
         this.xCoordinates = xCoordinates;
         this.yCoordinates = yCoordinates;
+        this.paintArea = paintArea;
     }
 
     @Override
@@ -28,6 +30,7 @@ public class DrawTriangle implements IDrawShape, IUndoable {
         Graphics2D g = paintCanvasBase.getGraphics2D();
         g.setColor(applicationState.getActivePrimaryColor().getColor());
         Polygon t = new Polygon(xCoordinates, yCoordinates, 3);
+        paintArea = t;
 
         if(applicationState.getActiveShapeShadingType().equals(ShapeShadingType.FILLED_IN)){
             g.setColor(applicationState.getActivePrimaryColor().getColor());

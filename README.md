@@ -21,3 +21,11 @@
 
 #### -- Miscellaneous:
 1. Group members' individual branches were created;
+
+### Sprint 3:
+#### -- Bugs Encountered:
+1. 
+#### -- Extra Credit: N/A
+#### -- Missing Features: -
+#### -- Miscellaneous:
+1. Transitioned back to main branch from individual branch (ziyan-new-branch) following the announcement "Project Check-ins 3 and 4" posted on July 28th in D2L;

@@ -1,30 +1,33 @@
-package model.actions;
+package model.drawShapes;
 
 import model.CommandHistory;
 import model.ShapeShadingType;
-import model.interfaces.IDrawShape;
+import model.interfaces.IShape;
 import model.interfaces.IUndoable;
 import model.persistence.ApplicationState;
 import view.interfaces.PaintCanvasBase;
 
 import java.awt.*;
+import java.awt.geom.Ellipse2D;
 
-public class DrawRectangle implements IDrawShape, IUndoable {
+public class CreateEclipse implements IShape, IUndoable {
     ApplicationState applicationState;
     PaintCanvasBase paintCanvasBase;
     int referenceX;
     int referenceY;
     int width;
     int height;
+    Shape paintArea;
 
-    public DrawRectangle(ApplicationState applicationState, PaintCanvasBase paintCanvasBase,
-                         int refX, int refY, int width, int height) {
+    public CreateEclipse(ApplicationState applicationState, PaintCanvasBase paintCanvasBase,
+                         int referenceX, int referenceY, int width, int height, Shape paintArea) {
         this.applicationState = applicationState;
         this.paintCanvasBase = paintCanvasBase;
-        this.referenceX = refX;
-        this.referenceY = refY;
+        this.referenceX = referenceX;
+        this.referenceY = referenceY;
         this.width = width;
         this.height = height;
+        this.paintArea = paintArea;
     }
 
     @Override
@@ -33,25 +36,30 @@ public class DrawRectangle implements IDrawShape, IUndoable {
 
         if(applicationState.getActiveShapeShadingType().equals(ShapeShadingType.FILLED_IN)){
             g.setColor(applicationState.getActivePrimaryColor().getColor());
-            g.fillRect(referenceX, referenceY, width, height);
+            g.fillOval(referenceX, referenceY, width, height);
+            paintArea = new Ellipse2D.Double(referenceX, referenceY, width, height);
 
         }else if(applicationState.getActiveShapeShadingType().equals(ShapeShadingType.OUTLINE)){
             Stroke stroke = new BasicStroke(4);
             g.setStroke(stroke);
             g.setColor(applicationState.getActiveSecondaryColor().getColor());
-            g.drawRect(referenceX, referenceY, width, height);
+            g.drawOval(referenceX, referenceY, width, height);
 
         }else if(applicationState.getActiveShapeShadingType().equals(ShapeShadingType.OUTLINE_AND_FILLED_IN)){
             g.setColor(applicationState.getActivePrimaryColor().getColor());
-            g.fillRect(referenceX, referenceY, width, height);
+            g.fillOval(referenceX, referenceY, width, height);
 
             Stroke stroke = new BasicStroke(4);
             g.setStroke(stroke);
             g.setColor(applicationState.getActiveSecondaryColor().getColor());
-            g.drawRect(referenceX, referenceY, width, height);
+            g.drawOval(referenceX, referenceY, width, height);
         }else throw new Error();
 
         CommandHistory.add(this);
+    }
+
+    public Shape getPaintArea() {
+        return paintArea;
     }
 
     @Override
@@ -63,5 +71,4 @@ public class DrawRectangle implements IDrawShape, IUndoable {
     public void redo() {
         drawShape();
     }
-
 }

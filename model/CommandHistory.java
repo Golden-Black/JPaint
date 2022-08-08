@@ -2,7 +2,6 @@ package model;
 
 import model.interfaces.IShape;
 import model.interfaces.IUndoable;
-
 import java.awt.*;
 import java.util.Stack;
 
@@ -10,15 +9,9 @@ public class CommandHistory {
 	private static final Stack<IUndoable> undoStack = new Stack<IUndoable>();
 	private static final Stack<IUndoable> redoStack = new Stack<IUndoable>();
 
-	public static final Stack<IShape> onShapeList = new Stack<>();
-
 	public static void add(IUndoable cmd) {
 		undoStack.push(cmd);
 		redoStack.clear();
-	}
-
-	public static void addShape(IShape shape){
-		onShapeList.add(shape);
 	}
 	
 	public static boolean undo() {

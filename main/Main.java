@@ -2,7 +2,7 @@ package main;
 
 import controller.IJPaintController;
 import controller.JPaintController;
-import model.actions.ClickHandler;
+import model.commands.ClickHandler;
 import model.persistence.ApplicationState;
 import view.gui.Gui;
 import view.gui.GuiWindow;
@@ -10,8 +10,6 @@ import view.gui.PaintCanvas;
 import view.interfaces.IGuiWindow;
 import view.interfaces.PaintCanvasBase;
 import view.interfaces.IUiModule;
-
-import java.sql.SQLOutput;
 
 public class Main {
     public static void main(String[] args){
