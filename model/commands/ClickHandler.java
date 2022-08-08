@@ -65,7 +65,7 @@ public class ClickHandler extends MouseAdapter {
         }else if(applicationState.getActiveMouseMode().equals(MouseMode.SELECT)){
             command = new SelectShapeCommand(applicationState, paintCanvasBase, refX, refY, width, height, shapeList);
         }else if(applicationState.getActiveMouseMode().equals(MouseMode.MOVE)){
-            System.out.println("Move a shape! :D");
+            command = new MoveShapeCommand(applicationState, paintCanvasBase, refX, refY, width, height, shapeList);
         }
 
         assert command != null;

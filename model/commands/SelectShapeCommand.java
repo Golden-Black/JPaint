@@ -3,7 +3,6 @@ package model.commands;
 import model.CommandHistory;
 import model.ShapeList;
 import model.interfaces.ICommand;
-import model.interfaces.IShape;
 import model.persistence.ApplicationState;
 import view.interfaces.PaintCanvasBase;
 
@@ -44,18 +43,26 @@ public class SelectShapeCommand implements ICommand {
             shapeList.getSelectedShapes().clear();
 
             for(int i = 0; i < shapeList.getExistingShapes().size(); ++i){
-                
-                Area shapeArea = new Area((Shape)shapeList.getExistingShapes().get(i));
+
+                Area shapeArea = new Area(shapeList.getExistingShapes().get(i));
                 Area selectArea = new Area(selectedArea);
 
                 // add to selected shapes if [collied AND not already included]
                 if(selectArea.getBounds2D().intersects(shapeArea.getBounds2D()) &&
                 !shapeList.getSelectedShapes().contains(shapeList.getExistingShapes().get(i))){
                     shapeList.addSelected(shapeList.getExistingShapes().get(i));
+                    shapeList.addIShapeSelect(shapeList.getIShapeList().get(i));
+
                     System.out.println("Shape Selected!");
                 }
+                // Selected Shape
+//        Stroke stroke = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 1, new float[]{9}, 0);
+//        graphics2d.setStroke(stroke);
+//        graphics2d.setColor(Color.BLACK);
+//        graphics2d.drawRect(7, 8, 210, 410);
             }
-        }
 
+
+        }
     }
 }

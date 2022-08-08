@@ -1,6 +1,7 @@
 package model.drawShapes;
 
 import model.CommandHistory;
+import model.ShapeList;
 import model.ShapeShadingType;
 import model.interfaces.IShape;
 import model.interfaces.IUndoable;
@@ -10,7 +11,7 @@ import view.interfaces.PaintCanvasBase;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 
-public class CreateEclipse implements IShape, IUndoable {
+public class CreateEclipse implements IShape {
     ApplicationState applicationState;
     PaintCanvasBase paintCanvasBase;
     int referenceX;
@@ -18,9 +19,10 @@ public class CreateEclipse implements IShape, IUndoable {
     int width;
     int height;
     Shape paintArea;
+    ShapeList shapeList;
 
     public CreateEclipse(ApplicationState applicationState, PaintCanvasBase paintCanvasBase,
-                         int referenceX, int referenceY, int width, int height, Shape paintArea) {
+                         int referenceX, int referenceY, int width, int height, Shape paintArea, ShapeList shapeList) {
         this.applicationState = applicationState;
         this.paintCanvasBase = paintCanvasBase;
         this.referenceX = referenceX;
@@ -28,6 +30,7 @@ public class CreateEclipse implements IShape, IUndoable {
         this.width = width;
         this.height = height;
         this.paintArea = paintArea;
+        this.shapeList = shapeList;
     }
 
     @Override
@@ -37,7 +40,6 @@ public class CreateEclipse implements IShape, IUndoable {
         if(applicationState.getActiveShapeShadingType().equals(ShapeShadingType.FILLED_IN)){
             g.setColor(applicationState.getActivePrimaryColor().getColor());
             g.fillOval(referenceX, referenceY, width, height);
-            paintArea = new Ellipse2D.Double(referenceX, referenceY, width, height);
 
         }else if(applicationState.getActiveShapeShadingType().equals(ShapeShadingType.OUTLINE)){
             Stroke stroke = new BasicStroke(4);
@@ -55,20 +57,17 @@ public class CreateEclipse implements IShape, IUndoable {
             g.drawOval(referenceX, referenceY, width, height);
         }else throw new Error();
 
-        CommandHistory.add(this);
-    }
-
-    public Shape getPaintArea() {
-        return paintArea;
+        paintArea = new Ellipse2D.Double(referenceX, referenceY, width, height);
+        shapeList.addToExisting(paintArea);
     }
 
     @Override
-    public void undo() {
-        paintCanvasBase.repaint();
-    }
-
-    @Override
-    public void redo() {
+    public void pasteShape() {
+        referenceX += 200;
+        referenceY += 200;
         drawShape();
+        paintArea = new Ellipse2D.Double(referenceX, referenceY, width, height);
+        shapeList.addToExisting(paintArea);
     }
+
 }

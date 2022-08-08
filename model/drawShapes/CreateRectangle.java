@@ -32,6 +32,7 @@ public class CreateRectangle implements IShape {
         this.shapeList = shapeList;
     }
 
+
     @Override
     public void drawShape() {
         Graphics2D g = paintCanvasBase.getGraphics2D();
@@ -39,8 +40,6 @@ public class CreateRectangle implements IShape {
         if(applicationState.getActiveShapeShadingType().equals(ShapeShadingType.FILLED_IN)){
             g.setColor(applicationState.getActivePrimaryColor().getColor());
             g.fillRect(referenceX, referenceY, width, height);
-
-
 
         }else if(applicationState.getActiveShapeShadingType().equals(ShapeShadingType.OUTLINE)){
             Stroke stroke = new BasicStroke(4);
@@ -63,9 +62,12 @@ public class CreateRectangle implements IShape {
 
     }
 
-    public Shape getPaintArea() {
-        return paintArea;
+    @Override
+    public void pasteShape() {
+        referenceX += 200;
+        referenceY += 200;
+        drawShape();
+        paintArea = new Rectangle(referenceX, referenceY, width, height);
+        shapeList.addToExisting(paintArea);
     }
-
-
 }

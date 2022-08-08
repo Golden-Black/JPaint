@@ -84,6 +84,22 @@ public class ApplicationState implements IApplicationState {
         System.out.println("Redo Clicked.");
     }
 
+    @Override
+    public void copy() {
+        ShapeList.copy();
+    }
+
+    @Override
+    public void paste() {
+        ShapeList.paste();
+    }
+
+    @Override
+    public void delete() {
+        ShapeList.delete();
+    }
+
+
     private void setDefaults() {
         activeShapeType = ShapeType.RECTANGLE;
         activePrimaryColor = ShapeColor.BLUE;

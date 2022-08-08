@@ -46,21 +46,23 @@ public class CreateShapeCommand implements ICommand, IUndoable {
         if (this.applicationState.getActiveShapeType().equals(ShapeType.RECTANGLE)) {
             shape = new CreateRectangle(this.applicationState, this.paintCanvasBase, this.refX, this.refY, this.width, this.height, null, shapeList);
         } else if (this.applicationState.getActiveShapeType().equals(ShapeType.ELLIPSE)) {
-            shape = new CreateEclipse(this.applicationState, this.paintCanvasBase, this.refX, this.refY, this.width, this.height, null);
+            shape = new CreateEclipse(this.applicationState, this.paintCanvasBase, this.refX, this.refY, this.width, this.height, null, shapeList);
         } else if (this.applicationState.getActiveShapeType().equals(ShapeType.TRIANGLE)) {
-            shape = new CreateTriangle(this.applicationState, this.paintCanvasBase, this.xCoordinates, this.yCoordinates, null);
+            shape = new CreateTriangle(this.applicationState, this.paintCanvasBase, this.xCoordinates, this.yCoordinates, null, shapeList);
         } else throw new Error();
 
         shape.drawShape();
+        shapeList.addIShapeList(shape);
         CommandHistory.add(this);
     }
 
     @Override
     public void undo() {
         shapeList.removeLastShape();
-        System.out.println("Here!");
+        // System.out.println("Here!");
+        paintCanvasBase.repaint();
         for(Shape iShape: shapeList.getExistingShapes()){
-            paintCanvasBase.repaint((Rectangle) iShape);
+            paintCanvasBase.paint((Graphics) iShape);
         }
     }
 

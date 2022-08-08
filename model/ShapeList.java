@@ -7,22 +7,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShapeList {
-    List<Shape> existingShapes = new ArrayList<>();
-    List<Shape> selectedShapes = new ArrayList<>();
+    private static List<Shape> existingShapes = new ArrayList<>(); // for selecting
+    private static List<IShape> iShapeList = new ArrayList<>(); // for drawing
+
+    List<Shape> selectedShapes = new ArrayList<>(); // for selecting
+    private static final List<IShape> iShapeSelected = new ArrayList<>(); // for drawing
+
     List<Shape> undoneShapes = new ArrayList<>();
 
+    private static final List<IShape> clipboard = new ArrayList<>();
+
+    // getters
     public List<Shape> getExistingShapes() {
         return existingShapes;
     }
-
     public List<Shape> getSelectedShapes() {
         return selectedShapes;
     }
-
+    public List<IShape> getIShapeList() {
+        return iShapeList;
+    }
     public List<Shape> getUndoneShapes() {
         return undoneShapes;
     }
 
+
+    // Adding functions
     public void addToExisting(Shape shape){
         existingShapes.add(shape);
         undoneShapes.clear();
@@ -32,9 +42,33 @@ public class ShapeList {
         selectedShapes.add(shape);
     }
 
+    public void addIShapeList(IShape iShape){
+        iShapeList.add(iShape);
+    }
+
+    public void addIShapeSelect(IShape iShape){
+        iShapeSelected.add(iShape);
+    }
+
     public void removeLastShape(){
         Shape lastShape = existingShapes.get(existingShapes.size() - 1);
         existingShapes.remove(existingShapes.size() - 1);
         undoneShapes.add(lastShape);
+    }
+
+    public static void copy(){
+        clipboard.clear();
+        clipboard.addAll(iShapeSelected);
+    }
+
+    public static void paste(){
+        for (IShape iShape : clipboard) {
+            iShape.pasteShape();
+            iShapeList.add(iShape);
+        }
+    }
+
+    public static void delete(){
+
     }
 }
