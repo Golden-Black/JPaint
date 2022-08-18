@@ -7,7 +7,6 @@ import model.drawShapes.CreateEclipse;
 import model.drawShapes.CreateRectangle;
 import model.drawShapes.CreateTriangle;
 import model.interfaces.ICommand;
-import model.interfaces.IEditShape;
 import model.interfaces.IShape;
 import model.interfaces.IUndoable;
 import model.persistence.ApplicationState;
@@ -58,12 +57,8 @@ public class CreateShapeCommand implements ICommand, IUndoable{
 
     @Override
     public void undo() {
-        shapeList.removeLastShape();
         // System.out.println("Here!");
         paintCanvasBase.repaint();
-        for(Shape iShape: shapeList.getExistingShapes()){
-            paintCanvasBase.paint((Graphics) iShape);
-        }
     }
 
     @Override

@@ -68,9 +68,9 @@ public class CreateTriangle implements IShape, IUndoable, ISelectedSubjects {
         // Add IShape to canvas
         shapeList.addToCanvasIShapes(this);
 
-        // Add Shape to Metrics
+        // Add Metrics to canvas
         paintArea = t;
-        shapeList.addToExisting(paintArea);
+        shapeList.addToCanvasShapes(paintArea);
 
         // Add data to canvas
         ShapeInfo shapeData = new ShapeInfo(0, 0, 0, 0, xCoordinates, yCoordinates);
