@@ -29,41 +29,32 @@ public class SelectShapeCommand implements ICommand {
         this.shapeList = shapeList;
     }
 
+
     @Override
     public void execute() {
         // Collision Detection
         // Selected Area
-        Graphics2D g = paintCanvasBase.getGraphics2D();
-        Rectangle selectedArea = new Rectangle(refX, refY, width ,height);
+        Rectangle selectedArea = new Rectangle(refX, refY, width, height);
 
-        // check collision
-        if(shapeList.getExistingShapes().size() != 0){
+        // clear the selected shapes from last Select command
+        if(shapeList.ISelectedShapesSize() > 0) {
+            shapeList.getSelectedShapes().clear(); // shape
+            shapeList.getISelectedShapes().clear(); // IShape
+        }
 
-            // clear the selected shapes from last Select command
-            shapeList.getSelectedShapes().clear();
-            for(int i = 0; i < shapeList.getSelectedShapes().size(); ++i){
-                shapeList.removeObserver(shapeList.getIShapeList().get(i));
-            }
-
-            for(int i = 0; i < shapeList.getExistingShapes().size(); ++i){
-
-                Area shapeArea = new Area(shapeList.getExistingShapes().get(i));
+        if (shapeList.getCanvasShapes().size() != 0) {
+            for (int i = 0; i < shapeList.getCanvasShapes().size(); ++i) {
+                Area shapeArea = new Area(shapeList.getCanvasShapes().get(i));
                 Area selectArea = new Area(selectedArea);
 
-                // add to selected shapes if [collied AND not already included]
-                if(selectArea.getBounds2D().intersects(shapeArea.getBounds2D()) &&
-                !shapeList.getSelectedShapes().contains(shapeList.getExistingShapes().get(i))){
-                    shapeList.addSelected(shapeList.getExistingShapes().get(i));
-                    shapeList.addIShapeSelect(shapeList.getIShapeList().get(i));
-                    shapeList.registerObserver(shapeList.getIShapeList().get(i));
-
+                // compare the selected area and the shapes on canvas
+                if (selectArea.getBounds2D().intersects(shapeArea.getBounds2D())) {
+                    // if not included, add to both selectShapes and selectIShape list
+                    shapeList.addSelectedShapes(shapeList.getCanvasShapes().get(i));
+                    shapeList.addISelectedShapes(shapeList.getCanvasIShapes().get(i));
                     System.out.println("Shape Selected!");
                 }
             }
-
-            shapeList.notifySelectedObservers();
-
-
         }
     }
 }

@@ -7,14 +7,15 @@ import model.drawShapes.CreateEclipse;
 import model.drawShapes.CreateRectangle;
 import model.drawShapes.CreateTriangle;
 import model.interfaces.ICommand;
+import model.interfaces.IEditShape;
 import model.interfaces.IShape;
 import model.interfaces.IUndoable;
 import model.persistence.ApplicationState;
 import view.interfaces.PaintCanvasBase;
 
 import java.awt.*;
-
-public class CreateShapeCommand implements ICommand, IUndoable {
+// This serves as a shape factory
+public class CreateShapeCommand implements ICommand, IUndoable{
     ApplicationState applicationState;
     PaintCanvasBase paintCanvasBase;
     int refX;
@@ -52,7 +53,6 @@ public class CreateShapeCommand implements ICommand, IUndoable {
         } else throw new Error();
 
         shape.drawShape();
-        shapeList.addIShapeList(shape);
         CommandHistory.add(this);
     }
 

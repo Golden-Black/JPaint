@@ -1,7 +1,10 @@
 package model.persistence;
 
 import model.*;
+import model.commands.CreateShapeCommand;
 import model.dialogs.DialogProvider;
+import model.drawShapes.CreateEclipse;
+import model.editShapes.CopyShapeList;
 import model.interfaces.IApplicationState;
 import model.interfaces.IDialogProvider;
 import view.interfaces.IUiModule;
@@ -97,6 +100,16 @@ public class ApplicationState implements IApplicationState {
     @Override
     public void delete() {
         ShapeList.delete();
+    }
+
+    @Override
+    public void group() {
+        ShapeList.group();
+    }
+
+    @Override
+    public void unGroup() {
+        ShapeList.unGroup();
     }
 
 

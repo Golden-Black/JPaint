@@ -35,4 +35,8 @@ public interface IApplicationState {
     void paste();
 
     void delete();
+
+    void group();
+
+    void unGroup();
 }
