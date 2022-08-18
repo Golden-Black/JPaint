@@ -15,4 +15,6 @@ public interface IShape {
 
     void updateOutline();
     void removeOutline();
+
+    void delete();
 }

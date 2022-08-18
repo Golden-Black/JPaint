@@ -122,7 +122,15 @@ public class CreateTriangle implements IShape, IUndoable, ISelectedSubjects {
     }
 
     @Override
+    public void delete() {
+        shapeList.getCanvasIShapes().remove(this);
+        shapeList.getCanvasShapes().remove(paintArea);
+        paintCanvasBase.repaint();
+    }
+
+    @Override
     public void undo() {
+        shapeList.getCanvasIShapes().remove(2);
         paintCanvasBase.repaint();
     }
 

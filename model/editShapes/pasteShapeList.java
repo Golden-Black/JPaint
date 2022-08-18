@@ -8,11 +8,11 @@ import java.util.List;
 
 public class pasteShapeList implements IEditSubject {
 
-    List<IShape> copiedIShapes;
+    List<IShape> selectedIShapes;
     private final List<IShape> pasteObservers = new ArrayList<>();
 
-    public pasteShapeList(List<IShape> copiedIShapes) {
-        this.copiedIShapes = copiedIShapes;
+    public pasteShapeList(List<IShape> selectedIShapes) {
+        this.selectedIShapes = selectedIShapes;
     }
 
     public void start() {

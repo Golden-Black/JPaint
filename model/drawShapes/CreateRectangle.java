@@ -102,8 +102,6 @@ public class CreateRectangle implements IShape, ISelectedSubjects {
 
     @Override
     public void updateOutline() {
-
-
         Stroke stroke = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 1, new float[]{9}, 0);
         g.setStroke(stroke);
         g.setColor(Color.BLACK);
@@ -116,5 +114,12 @@ public class CreateRectangle implements IShape, ISelectedSubjects {
 //        g.setStroke(stroke);
 //        g.setColor(Color.GREEN);
 //        g.drawRect(referenceX, referenceY, width, height);
+    }
+
+    @Override
+    public void delete() {
+        shapeList.getCanvasIShapes().remove(this);
+        shapeList.getCanvasShapes().remove(paintArea);
+        paintCanvasBase.repaint();
     }
 }

@@ -1,8 +1,8 @@
 package model;
 
 import model.editShapes.CopyShapeList;
+import model.editShapes.deleteShapeList;
 import model.editShapes.pasteShapeList;
-import model.interfaces.ISelectedSubjects;
 import model.interfaces.IShape;
 
 import java.awt.*;
@@ -32,11 +32,6 @@ public class ShapeList {
 
 
 
-
-    public static void delete(){
-        // updating to new design pattern
-    }
-
     public static void group() {
         
     }
@@ -48,6 +43,11 @@ public class ShapeList {
 
 
     ////////////////////////////////////////
+
+    // ----------------DRAW SHAPES FOR PAINTCANVAS--------------------
+    public static List<Shape> getCanvas(){
+        return canvasShapes;
+    }
 
     // All shapes & IShapes on Canvas
     private static final List<Shape> canvasShapes = new ArrayList<>();
@@ -132,5 +132,15 @@ public class ShapeList {
         pasteShapeListHandler.start();
     }
 
+
+    // ----------------DELETE SHAPES----------------------------------
+    // register the IShapes to be deleted from selected IShapes
+    public static void delete(){
+        deleteShapeList deleteShapeListHandler = new deleteShapeList(iSelectedShapes);
+        for (IShape iSelectedShapes : iSelectedShapes) {
+            deleteShapeListHandler.registerObserver(iSelectedShapes);
+        }
+        deleteShapeListHandler.start();
+    }
 
 }

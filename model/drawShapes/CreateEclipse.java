@@ -91,6 +91,13 @@ public class CreateEclipse implements IShape, ISelectedSubjects {
     }
 
     @Override
+    public void delete() {
+        shapeList.getCanvasIShapes().remove(this);
+        shapeList.getCanvasShapes().remove(paintArea);
+        paintCanvasBase.repaint();
+    }
+
+    @Override
     public void move(int refX, int refY, int widthDist, int heightDist, int[] xCoordinates, int[] yCoordinates, ShapeInfo shapeInfo) {
         g.setColor(Color.WHITE);
         g.fillOval(shapeInfo.originRefX, shapeInfo.originRefY, shapeInfo.originWidth, shapeInfo.originHeight);
@@ -118,4 +125,5 @@ public class CreateEclipse implements IShape, ISelectedSubjects {
         g.setColor(Color.WHITE);
         g.drawOval(referenceX, referenceY, width, height);
     }
+
 }
