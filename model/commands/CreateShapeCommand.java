@@ -12,7 +12,7 @@ import model.interfaces.IUndoable;
 import model.persistence.ApplicationState;
 import view.interfaces.PaintCanvasBase;
 
-import java.awt.*;
+
 // This serves as a shape factory
 public class CreateShapeCommand implements ICommand, IUndoable{
     ApplicationState applicationState;

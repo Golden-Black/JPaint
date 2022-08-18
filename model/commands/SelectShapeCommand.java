@@ -3,6 +3,7 @@ package model.commands;
 import model.CommandHistory;
 import model.ShapeList;
 import model.interfaces.ICommand;
+import model.interfaces.IShape;
 import model.persistence.ApplicationState;
 import view.interfaces.PaintCanvasBase;
 
@@ -38,8 +39,8 @@ public class SelectShapeCommand implements ICommand {
 
         // clear the selected shapes from last Select command
         if(shapeList.ISelectedShapesSize() > 0) {
-            shapeList.getSelectedShapes().clear(); // shape
-            shapeList.getISelectedShapes().clear(); // IShape
+            shapeList.clearSelectedShapes(); // shape
+            shapeList.clearISelectedShapes(); // IShape
         }
 
         if (shapeList.getCanvasShapes().size() != 0) {
@@ -50,8 +51,11 @@ public class SelectShapeCommand implements ICommand {
                 // compare the selected area and the shapes on canvas
                 if (selectArea.getBounds2D().intersects(shapeArea.getBounds2D())) {
                     // if not included, add to both selectShapes and selectIShape list
+                    IShape selected = shapeList.getCanvasIShapes().get(i);
                     shapeList.addSelectedShapes(shapeList.getCanvasShapes().get(i));
-                    shapeList.addISelectedShapes(shapeList.getCanvasIShapes().get(i));
+                    shapeList.addISelectedShapes(selected);
+                    // draw outline
+                    selected.updateOutline();
                     System.out.println("Shape Selected!");
                 }
             }

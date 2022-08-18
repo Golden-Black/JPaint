@@ -2,6 +2,7 @@ package model;
 
 import model.editShapes.CopyShapeList;
 import model.editShapes.pasteShapeList;
+import model.interfaces.ISelectedSubjects;
 import model.interfaces.IShape;
 
 import java.awt.*;
@@ -71,9 +72,15 @@ public class ShapeList {
     public List<IShape> getISelectedShapes() {
         return iSelectedShapes;
     }
+    // add to selected Shapes
     public void addISelectedShapes(IShape iShape){
         iSelectedShapes.add(iShape);
     }
+    // empty the selectedShapes
+    public void clearISelectedShapes(){
+        iSelectedShapes.clear();
+    }
+    // return the size of the selectedShapes
     public int ISelectedShapesSize(){
         return iSelectedShapes.size();
     }
@@ -85,6 +92,9 @@ public class ShapeList {
     public void addSelectedShapes(Shape shape){
         selectedShapes.add(shape);
     }
+    public void clearSelectedShapes(){
+        selectedShapes.clear();
+    }
 
 
     // ----------------COPY SHAPES----------------------------------
@@ -92,9 +102,13 @@ public class ShapeList {
     public static void copy(){
         // register Copy Pieces
         CopyShapeList copyShapeListHandler = new CopyShapeList(iSelectedShapes);
-        for(int i = 0; i < iSelectedShapes.size(); ++i){
-            copyShapeListHandler.registerObserver(iSelectedShapes.get(i));
+        copyShapeListHandler.clearEarlierCopyObservers();
+
+        // System.out.println(":::::"+iSelectedShapes.size());
+        for (IShape iSelectedShape : iSelectedShapes) {
+            copyShapeListHandler.registerObserver(iSelectedShape);
         }
+        System.out.println(copyShapeListHandler.sizeCopyObservers());
         copyShapeListHandler.start();
     }
 
@@ -109,9 +123,11 @@ public class ShapeList {
     // List for pasting IShapes
     // register the copied IShapes from selected IShapes
     public static void paste(){
-        pasteShapeList pasteShapeListHandler = new pasteShapeList(copiedShapes);
-        for(int i = 0; i < iSelectedShapes.size(); ++i){
-            pasteShapeListHandler.registerObserver(copiedShapes.get(i));
+        pasteShapeList pasteShapeListHandler = new pasteShapeList(iSelectedShapes);
+        // System.out.println(":::::"+iSelectedShapes.size());
+
+        for (IShape iSelectedShapes : iSelectedShapes) {
+            pasteShapeListHandler.registerObserver(iSelectedShapes);
         }
         pasteShapeListHandler.start();
     }

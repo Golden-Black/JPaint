@@ -20,6 +20,13 @@ public class CopyShapeList implements IEditSubject {
         this.selectedIShapes = selectedIShapes;
     }
 
+    public void clearEarlierCopyObservers(){
+        copyObservers.clear();
+    }
+    public int sizeCopyObservers(){
+        return copyObservers.size();
+    }
+
     @Override
     public void registerObserver(IShape observer) {
         copyObservers.add(observer);

@@ -67,6 +67,7 @@ public class CreateEclipse implements IShape, ISelectedSubjects {
 
         // Add IShape to canvas
         shapeList.addToCanvasIShapes(this);
+        System.out.println(shapeList.getCanvasIShapes().size());
 
         paintArea = new Ellipse2D.Double(referenceX, referenceY, width, height);
         // Add to the ShapeMetrics

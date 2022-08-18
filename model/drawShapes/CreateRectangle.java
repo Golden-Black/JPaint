@@ -22,6 +22,7 @@ public class CreateRectangle implements IShape, ISelectedSubjects {
     Color primary;
     Color secondary;
     ShapeShadingType shapeShadingType;
+    Graphics2D g;
 
     public CreateRectangle(ApplicationState applicationState, PaintCanvasBase paintCanvasBase,
                            int refX, int refY, int width, int height, Shape paintArea, ShapeList shapeList) {
@@ -36,13 +37,11 @@ public class CreateRectangle implements IShape, ISelectedSubjects {
         this.primary = applicationState.getActivePrimaryColor().getColor();
         this.secondary = applicationState.getActiveSecondaryColor().getColor();
         this.shapeShadingType = applicationState.getActiveShapeShadingType();
+        this.g = paintCanvasBase.getGraphics2D();
     }
-
-    Graphics2D g;
 
     @Override
     public void drawShape() {
-        g = paintCanvasBase.getGraphics2D();
 
         if(shapeShadingType.equals(ShapeShadingType.FILLED_IN)){
             g.setColor(primary);
@@ -90,11 +89,11 @@ public class CreateRectangle implements IShape, ISelectedSubjects {
 
     @Override
     public void move(int refX, int refY, int widthDist, int heightDist, int[] xCoordinates, int[] yCoordinates, ShapeInfo shapeInfo) {
-        g.setColor(Color.WHITE);
-        g.fillRect(shapeInfo.originRefX, shapeInfo.originRefY, shapeInfo.originWidth, shapeInfo.originHeight);
-        Stroke stroke = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 1, new float[]{9}, 0);
-        g.setStroke(stroke);
-        g.drawRect(referenceX, referenceY, width, height);
+//        g.setColor(Color.WHITE);
+//        g.fillRect(shapeInfo.originRefX, shapeInfo.originRefY, shapeInfo.originWidth, shapeInfo.originHeight);
+//        Stroke stroke = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 1, new float[]{9}, 0);
+//        g.setStroke(stroke);
+//        g.drawRect(referenceX, referenceY, width, height);
 
         referenceX = widthDist + shapeInfo.originRefX;
         referenceY = heightDist + shapeInfo.originRefY;
@@ -103,6 +102,8 @@ public class CreateRectangle implements IShape, ISelectedSubjects {
 
     @Override
     public void updateOutline() {
+
+
         Stroke stroke = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 1, new float[]{9}, 0);
         g.setStroke(stroke);
         g.setColor(Color.BLACK);
@@ -110,9 +111,10 @@ public class CreateRectangle implements IShape, ISelectedSubjects {
     }
 
     public void removeOutline(){
-        Stroke stroke = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 1, new float[]{9}, 0);
-        g.setStroke(stroke);
-        g.setColor(Color.GREEN);
-        g.drawRect(referenceX, referenceY, width, height);
+        drawShape();
+//        Stroke stroke = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 1, new float[]{9}, 0);
+//        g.setStroke(stroke);
+//        g.setColor(Color.GREEN);
+//        g.drawRect(referenceX, referenceY, width, height);
     }
 }
