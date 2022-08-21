@@ -93,17 +93,19 @@ public class CreateTriangle implements IShape, IUndoable, ISelectedSubjects {
     }
 
     @Override
-    public void move(int refX, int refY, int widthDist, int heightDist, int[] xCoord, int[] yCoord, ShapeInfo shapeInfo) {
-        g.setColor(Color.WHITE);
-        Polygon t = new Polygon(shapeInfo.originXCoordinates, shapeInfo.originYCoordinates, 3);
-        Stroke stroke = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 1, new float[]{9}, 0);
-        g.setStroke(stroke);
-        g.drawPolygon(t);
+    public void move(int refX, int refY, int widthDist, int heightDist, int[] xCoord, int[] yCoord) {
+//        g.setColor(Color.WHITE);
+//        Polygon t = new Polygon(xCoordinates, shapeInfo.originYCoordinates, 3);
+//        Stroke stroke = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 1, new float[]{9}, 0);
+//        g.setStroke(stroke);
+//        g.drawPolygon(t);
 
         for(int i = 0; i < 3; ++i) {
-            xCoordinates[i] = xCoord[i] + shapeInfo.originXCoordinates[i];
-            yCoordinates[i] = xCoord[i] + shapeInfo.originXCoordinates[i];
+            xCoordinates[i] = widthDist + xCoordinates[i];
+            yCoordinates[i] = heightDist + yCoordinates[i];
         }
+        shapeList.removeIShapeFromCanvas(this);
+        shapeList.removeShapeFromCanvas(paintArea);
         drawShape();
     }
 

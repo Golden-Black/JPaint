@@ -9,6 +9,7 @@ import model.persistence.ApplicationState;
 import view.interfaces.PaintCanvasBase;
 
 import java.awt.*;
+import java.awt.geom.Ellipse2D;
 
 public class CreateRectangle implements IShape, ISelectedSubjects {
     ApplicationState applicationState;
@@ -88,15 +89,11 @@ public class CreateRectangle implements IShape, ISelectedSubjects {
     }
 
     @Override
-    public void move(int refX, int refY, int widthDist, int heightDist, int[] xCoordinates, int[] yCoordinates, ShapeInfo shapeInfo) {
-//        g.setColor(Color.WHITE);
-//        g.fillRect(shapeInfo.originRefX, shapeInfo.originRefY, shapeInfo.originWidth, shapeInfo.originHeight);
-//        Stroke stroke = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 1, new float[]{9}, 0);
-//        g.setStroke(stroke);
-//        g.drawRect(referenceX, referenceY, width, height);
-
-        referenceX = widthDist + shapeInfo.originRefX;
-        referenceY = heightDist + shapeInfo.originRefY;
+    public void move(int refX, int refY, int widthDist, int heightDist, int[] xCoordinates, int[] yCoordinates) {
+        referenceX = widthDist + referenceX;
+        referenceY = heightDist + referenceY;
+        shapeList.removeIShapeFromCanvas(this);
+        shapeList.removeShapeFromCanvas(paintArea);
         drawShape();
     }
 

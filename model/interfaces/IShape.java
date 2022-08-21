@@ -11,7 +11,7 @@ public interface IShape {
     void copy();
     void paste();
 
-    void move(int referenceX, int referenceY, int width, int height, int[] xCoordinates, int[] yCoordinates, ShapeInfo shapeInfo);
+    void move(int referenceX, int referenceY, int width, int height, int[] xCoordinates, int[] yCoordinates);
 
     void updateOutline();
     void removeOutline();

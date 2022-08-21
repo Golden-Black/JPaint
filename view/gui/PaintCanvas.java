@@ -2,6 +2,7 @@ package view.gui;
 
 import model.ShapeList;
 import model.commands.ClickHandler;
+import model.interfaces.IShape;
 import view.interfaces.PaintCanvasBase;
 
 import javax.swing.JComponent;
@@ -18,10 +19,12 @@ public class PaintCanvas extends PaintCanvasBase {
         Graphics2D graphics2d = (Graphics2D)g;
 
         if(ShapeList.getCanvas().size() > 0){
-            for(Shape s: ShapeList.getCanvas()){
-                graphics2d.draw(s);
+            for(int i = 0; i < ShapeList.getCanvas().size(); ++i){
+
+                // ShapeList.getICanavs().get(i).drawShape();
+                graphics2d.draw(ShapeList.getCanvas().get(i));
             }
-        };
+        }
 
         // Draw all shapes here
 

@@ -46,13 +46,11 @@ public class ClickHandler extends MouseAdapter {
         // When drawing from bottom to top
         if(height < 0){
             refY = end.getY();
-            height = -height;
         }
 
         // When drawing from right to left
         if(width < 0){
             refX = end.getX();
-            width = -width;
         }
 
         int[] xCoordinates = new int[]{this.start.getX(), 2 * this.start.getX() - this.end.getX(), this.end.getX()};
@@ -61,7 +59,7 @@ public class ClickHandler extends MouseAdapter {
         ICommand command = null;
 
         if(applicationState.getActiveMouseMode().equals(MouseMode.DRAW)){
-            command = new CreateShapeCommand(applicationState, paintCanvasBase, refX, refY, width, height, xCoordinates, yCoordinates, shapeList);
+            command = new CreateShapeCommand(applicationState, paintCanvasBase, refX, refY, Math.abs(width), Math.abs(height), xCoordinates, yCoordinates, shapeList);
         }else if(applicationState.getActiveMouseMode().equals(MouseMode.SELECT)){
             command = new SelectShapeCommand(applicationState, paintCanvasBase, refX, refY, width, height, shapeList);
         }else if(applicationState.getActiveMouseMode().equals(MouseMode.MOVE)){

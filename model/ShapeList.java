@@ -48,6 +48,9 @@ public class ShapeList {
     public static List<Shape> getCanvas(){
         return canvasShapes;
     }
+    public static List<IShape> getICanavs(){
+        return canvasIShapes;
+    }
 
     // All shapes & IShapes on Canvas
     private static final List<Shape> canvasShapes = new ArrayList<>();
@@ -64,6 +67,14 @@ public class ShapeList {
     }
     public void addToCanvasShapes(Shape shape){
         canvasShapes.add(shape);
+    }
+
+    public void removeIShapeFromCanvas(IShape iShape){
+        canvasIShapes.remove(iShape);
+    }
+
+    public void removeShapeFromCanvas(Shape shape){
+        canvasShapes.remove(shape);
     }
 
     // ----------------SELECT SHAPES--------------------------------

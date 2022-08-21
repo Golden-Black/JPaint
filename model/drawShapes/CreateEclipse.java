@@ -76,7 +76,54 @@ public class CreateEclipse implements IShape, ISelectedSubjects {
         // Add to shape info
         ShapeInfo shapeData = new ShapeInfo(referenceX, referenceY, width, height, null, null);
         shapeList.addToShapeInfo(shapeData);
+    }
 
+    public ApplicationState getApplicationState() {
+        return applicationState;
+    }
+
+    public PaintCanvasBase getPaintCanvasBase() {
+        return paintCanvasBase;
+    }
+
+    public int getReferenceX() {
+        return referenceX;
+    }
+
+    public int getReferenceY() {
+        return referenceY;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public Shape getPaintArea() {
+        return paintArea;
+    }
+
+    public ShapeList getShapeList() {
+        return shapeList;
+    }
+
+    public Color getPrimary() {
+        return primary;
+    }
+
+    public Color getSecondary() {
+        return secondary;
+    }
+
+    public ShapeShadingType getShapeShadingType() {
+        return shapeShadingType;
+    }
+
+    public Graphics2D getG() {
+        return g;
     }
 
     @Override
@@ -98,15 +145,11 @@ public class CreateEclipse implements IShape, ISelectedSubjects {
     }
 
     @Override
-    public void move(int refX, int refY, int widthDist, int heightDist, int[] xCoordinates, int[] yCoordinates, ShapeInfo shapeInfo) {
-        g.setColor(Color.WHITE);
-        g.fillOval(shapeInfo.originRefX, shapeInfo.originRefY, shapeInfo.originWidth, shapeInfo.originHeight);
-        Stroke stroke = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 1, new float[]{9}, 0);
-        g.setStroke(stroke);
-        g.drawOval(referenceX, referenceY, width, height);
-
-        referenceX = widthDist + shapeInfo.originRefX;
-        referenceY = heightDist + shapeInfo.originRefY;
+    public void move(int refX, int refY, int widthDist, int heightDist, int[] xCoordinates, int[] yCoordinates) {
+        referenceX = widthDist + referenceX;
+        referenceY = heightDist + referenceY;
+        shapeList.removeIShapeFromCanvas(this);
+        shapeList.removeShapeFromCanvas(paintArea);
         drawShape();
     }
 

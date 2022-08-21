@@ -42,8 +42,12 @@ public class MoveShapeCommand implements ICommand {
 //                shapeList.getIShapeList().remove(iShape);
 //            }
 //        }
-
-
+        if(shapeList.getISelectedShapes().size() > 0){
+            for(IShape iShape: shapeList.getISelectedShapes()){
+                iShape.move(refX, refY, width, height, xCoordinates, yCoordinates);
+            }
+        }
+        paintCanvasBase.repaint();
 
 
     }

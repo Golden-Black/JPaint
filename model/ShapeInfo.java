@@ -12,7 +12,11 @@ public class ShapeInfo {
     public int originHeight;
     public int[] originXCoordinates;
     public int[] originYCoordinates;
-    public static boolean beingSelected = false;
+    ShapeList shapeList;
+    Color primary;
+    Color secondary;
+    ShapeShadingType shapeShadingType;
+
 
     public ShapeInfo(int originRefX, int originRefY, int originWidth, int originHeight, int[] originXCoordinates, int[] originYCoordinates) {
         this.originRefX = originRefX;
