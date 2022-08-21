@@ -71,7 +71,7 @@ public class CreateRectangle implements IShape, ISelectedSubjects {
         shapeList.addToCanvasShapes(paintArea);
 
         // Add Data to Canvas
-        ShapeInfo shapeData = new ShapeInfo(referenceX, referenceY, width, height, null, null);
+        ShapeInfo shapeData = new ShapeInfo(primary, secondary, shapeShadingType);
         shapeList.addToShapeInfo(shapeData);
 
     }

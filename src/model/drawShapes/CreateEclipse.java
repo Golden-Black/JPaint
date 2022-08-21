@@ -74,44 +74,8 @@ public class CreateEclipse implements IShape, ISelectedSubjects {
         shapeList.addToCanvasShapes(paintArea);
 
         // Add to shape info
-        ShapeInfo shapeData = new ShapeInfo(referenceX, referenceY, width, height, null, null);
+        ShapeInfo shapeData = new ShapeInfo(primary, secondary, shapeShadingType);
         shapeList.addToShapeInfo(shapeData);
-    }
-
-    public ApplicationState getApplicationState() {
-        return applicationState;
-    }
-
-    public PaintCanvasBase getPaintCanvasBase() {
-        return paintCanvasBase;
-    }
-
-    public int getReferenceX() {
-        return referenceX;
-    }
-
-    public int getReferenceY() {
-        return referenceY;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public Shape getPaintArea() {
-        return paintArea;
-    }
-
-    public ShapeList getShapeList() {
-        return shapeList;
-    }
-
-    public Graphics2D getG() {
-        return g;
     }
 
     @Override

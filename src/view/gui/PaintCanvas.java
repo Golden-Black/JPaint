@@ -1,6 +1,7 @@
 package view.gui;
 
 import model.ShapeList;
+import model.ShapeShadingType;
 import model.commands.ClickHandler;
 import model.interfaces.IShape;
 import view.interfaces.PaintCanvasBase;
@@ -20,10 +21,30 @@ public class PaintCanvas extends PaintCanvasBase {
 
         if(ShapeList.getCanvas().size() > 0){
             for(int i = 0; i < ShapeList.getCanvas().size(); ++i){
+                
+                ShapeShadingType shadingType = ShapeList.getShapeInfoList().get(i).shapeShadingType;
 
-                // ShapeList.getICanavs().get(i).drawShape();
-                ShapeList.getICanavs().get(i)
-                // graphics2d.draw(ShapeList.getCanvas().get(i));
+                if(shadingType.equals(ShapeShadingType.FILLED_IN)){
+                    graphics2d.setColor(ShapeList.getShapeInfoList().get(i).primary);
+                    graphics2d.fill(ShapeList.getCanvas().get(i));
+
+                }else if(shadingType.equals(ShapeShadingType.OUTLINE)){
+                    Stroke stroke = new BasicStroke(4);
+                    graphics2d.setStroke(stroke);
+                    graphics2d.setColor(ShapeList.getShapeInfoList().get(i).secondary);
+                    graphics2d.draw(ShapeList.getCanvas().get(i));
+
+                }else if(shadingType.equals(ShapeShadingType.OUTLINE_AND_FILLED_IN)){
+                    graphics2d.setColor(ShapeList.getShapeInfoList().get(i).primary);
+                    graphics2d.fill(ShapeList.getCanvas().get(i));
+
+                    Stroke stroke = new BasicStroke(4);
+                    graphics2d.setStroke(stroke);
+                    graphics2d.setColor(ShapeList.getShapeInfoList().get(i).secondary);
+                    graphics2d.draw(ShapeList.getCanvas().get(i));
+                }else throw new Error();
+
+                graphics2d.draw(ShapeList.getCanvas().get(i));
             }
         }
 

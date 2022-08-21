@@ -12,14 +12,8 @@ import java.util.List;
 public class ShapeList {
 
     // for moving
-    private static final List<ShapeInfo> shapeInfoList = new ArrayList<>(); // for moving
 
-    public void addToShapeInfo (ShapeInfo shapeData){
-        shapeInfoList.add(shapeData);
-    }
-    public List<ShapeInfo> getShapeInfoList(){
-        return shapeInfoList;
-    }
+
 
     private final List<IShape> selectedObservers = new ArrayList<>();// observer
 
@@ -76,6 +70,16 @@ public class ShapeList {
     public void removeShapeFromCanvas(Shape shape){
         canvasShapes.remove(shape);
     }
+
+    // ----------------COLOR & SHADING INFO-------------------------
+    private static final List<ShapeInfo> shapeInfoList = new ArrayList<>();
+
+    public static List<ShapeInfo> getShapeInfoList(){
+        return shapeInfoList;
+    }
+    public void addToShapeInfo (ShapeInfo shapeData){ shapeInfoList.add(shapeData); }
+    public void removeShapeInfo (ShapeInfo shapeInfo) { shapeInfoList.remove(shapeInfo); }
+
 
     // ----------------SELECT SHAPES--------------------------------
     // Selected Shapes & IShapes
