@@ -1,17 +1,19 @@
 package model.drawShapes;
 
+import model.CommandHistory;
 import model.ShapeInfo;
 import model.ShapeList;
 import model.ShapeShadingType;
 import model.interfaces.ISelectedSubjects;
 import model.interfaces.IShape;
+import model.interfaces.IUndoable;
 import model.persistence.ApplicationState;
 import view.interfaces.PaintCanvasBase;
 
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 
-public class CreateEclipse implements IShape, ISelectedSubjects {
+public class CreateEclipse implements IShape, ISelectedSubjects, IUndoable {
     ApplicationState applicationState;
     PaintCanvasBase paintCanvasBase;
     int referenceX;
@@ -20,9 +22,10 @@ public class CreateEclipse implements IShape, ISelectedSubjects {
     int height;
     Shape paintArea;
     ShapeList shapeList;
-    public Color primary;
-    public Color secondary;
-    public ShapeShadingType shapeShadingType;
+    Color primary;
+    Color secondary;
+    ShapeShadingType shapeShadingType;
+    ShapeInfo shapeInfo;
 
     public CreateEclipse(ApplicationState applicationState, PaintCanvasBase paintCanvasBase,
                          int referenceX, int referenceY, int width, int height, Shape paintArea, ShapeList shapeList) {
@@ -37,6 +40,7 @@ public class CreateEclipse implements IShape, ISelectedSubjects {
         this.primary = applicationState.getActivePrimaryColor().getColor();
         this.secondary = applicationState.getActiveSecondaryColor().getColor();
         this.shapeShadingType = applicationState.getActiveShapeShadingType();
+        this.shapeInfo = null;
     }
 
     Graphics2D g;
@@ -74,8 +78,10 @@ public class CreateEclipse implements IShape, ISelectedSubjects {
         shapeList.addToCanvasShapes(paintArea);
 
         // Add to shape info
-        ShapeInfo shapeData = new ShapeInfo(primary, secondary, shapeShadingType);
-        shapeList.addToShapeInfo(shapeData);
+        shapeInfo = new ShapeInfo(primary, secondary, shapeShadingType);
+        shapeList.addToShapeInfo(shapeInfo);
+
+        CommandHistory.add(this);
     }
 
     @Override
@@ -113,12 +119,20 @@ public class CreateEclipse implements IShape, ISelectedSubjects {
         g.drawOval(referenceX, referenceY, width, height);
     }
 
+
     @Override
-    public void removeOutline() {
-        Stroke stroke = new BasicStroke(10, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 1, new float[]{9}, 0);
-        g.setStroke(stroke);
-        g.setColor(Color.WHITE);
-        g.drawOval(referenceX, referenceY, width, height);
+    public void undo() {
+        shapeList.removeIShapeFromCanvas(this);
+        shapeList.removeShapeFromCanvas(paintArea);
+        shapeList.removeShapeInfo(shapeInfo);
+        paintCanvasBase.repaint();
     }
 
+    @Override
+    public void redo() {
+        shapeList.addToCanvasIShapes(this);
+        shapeList.addToCanvasShapes(paintArea);
+        shapeList.addToShapeInfo(shapeInfo);
+        paintCanvasBase.repaint();
+    }
 }

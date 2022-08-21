@@ -1,16 +1,18 @@
 package model.drawShapes;
 
+import model.CommandHistory;
 import model.ShapeInfo;
 import model.ShapeList;
 import model.ShapeShadingType;
 import model.interfaces.ISelectedSubjects;
 import model.interfaces.IShape;
+import model.interfaces.IUndoable;
 import model.persistence.ApplicationState;
 import view.interfaces.PaintCanvasBase;
 
 import java.awt.*;
 
-public class CreateRectangle implements IShape, ISelectedSubjects {
+public class CreateRectangle implements IShape, ISelectedSubjects, IUndoable {
     ApplicationState applicationState;
     PaintCanvasBase paintCanvasBase;
     int referenceX;
@@ -22,6 +24,7 @@ public class CreateRectangle implements IShape, ISelectedSubjects {
     Color primary;
     Color secondary;
     ShapeShadingType shapeShadingType;
+    ShapeInfo shapeInfo;
     Graphics2D g;
 
     public CreateRectangle(ApplicationState applicationState, PaintCanvasBase paintCanvasBase,
@@ -37,6 +40,7 @@ public class CreateRectangle implements IShape, ISelectedSubjects {
         this.primary = applicationState.getActivePrimaryColor().getColor();
         this.secondary = applicationState.getActiveSecondaryColor().getColor();
         this.shapeShadingType = applicationState.getActiveShapeShadingType();
+        this.shapeInfo = null;
         this.g = paintCanvasBase.getGraphics2D();
     }
 
@@ -71,9 +75,10 @@ public class CreateRectangle implements IShape, ISelectedSubjects {
         shapeList.addToCanvasShapes(paintArea);
 
         // Add Data to Canvas
-        ShapeInfo shapeData = new ShapeInfo(primary, secondary, shapeShadingType);
-        shapeList.addToShapeInfo(shapeData);
+        shapeInfo = new ShapeInfo(primary, secondary, shapeShadingType);
+        shapeList.addToShapeInfo(shapeInfo);
 
+        CommandHistory.add(this);
     }
 
     @Override
@@ -104,18 +109,23 @@ public class CreateRectangle implements IShape, ISelectedSubjects {
         g.drawRect(referenceX, referenceY, width, height);
     }
 
-    public void removeOutline(){
-        drawShape();
-//        Stroke stroke = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 1, new float[]{9}, 0);
-//        g.setStroke(stroke);
-//        g.setColor(Color.GREEN);
-//        g.drawRect(referenceX, referenceY, width, height);
-    }
-
     @Override
     public void delete() {
         shapeList.getCanvasIShapes().remove(this);
         shapeList.getCanvasShapes().remove(paintArea);
+        paintCanvasBase.repaint();
+    }
+
+    @Override
+    public void undo() {
+        shapeList.removeIShapeFromCanvas(this);
+        shapeList.removeShapeFromCanvas(paintArea);
+        shapeList.removeShapeInfo(shapeInfo);
+        paintCanvasBase.repaint();
+    }
+
+    @Override
+    public void redo() {
         paintCanvasBase.repaint();
     }
 }

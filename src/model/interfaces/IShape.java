@@ -12,7 +12,6 @@ public interface IShape {
     void move(int referenceX, int referenceY, int width, int height, int[] xCoordinates, int[] yCoordinates);
 
     void updateOutline();
-    void removeOutline();
 
     void delete();
 }

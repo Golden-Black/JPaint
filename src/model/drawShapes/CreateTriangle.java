@@ -22,6 +22,7 @@ public class CreateTriangle implements IShape, IUndoable, ISelectedSubjects {
     Color primary;
     Color secondary;
     ShapeShadingType shapeShadingType;
+    ShapeInfo shapeInfo;
 
     public CreateTriangle(ApplicationState applicationState, PaintCanvasBase paintCanvasBase,
                           int[] xCoordinates, int[] yCoordinates, Shape paintArea, ShapeList shapeList) {
@@ -34,6 +35,7 @@ public class CreateTriangle implements IShape, IUndoable, ISelectedSubjects {
         this.primary = applicationState.getActivePrimaryColor().getColor();
         this.secondary = applicationState.getActiveSecondaryColor().getColor();
         this.shapeShadingType = applicationState.getActiveShapeShadingType();
+        this.shapeInfo = null;
     }
     Graphics2D g;
 
@@ -73,8 +75,8 @@ public class CreateTriangle implements IShape, IUndoable, ISelectedSubjects {
         shapeList.addToCanvasShapes(paintArea);
 
         // Add data to canvas
-        ShapeInfo shapeData = new ShapeInfo(primary, secondary, shapeShadingType);
-        shapeList.addToShapeInfo(shapeData);
+        shapeInfo = new ShapeInfo(primary, secondary, shapeShadingType);
+        shapeList.addToShapeInfo(shapeInfo);
 
         CommandHistory.add(this);
     }
@@ -94,16 +96,11 @@ public class CreateTriangle implements IShape, IUndoable, ISelectedSubjects {
 
     @Override
     public void move(int refX, int refY, int widthDist, int heightDist, int[] xCoord, int[] yCoord) {
-//        g.setColor(Color.WHITE);
-//        Polygon t = new Polygon(xCoordinates, shapeInfo.originYCoordinates, 3);
-//        Stroke stroke = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 1, new float[]{9}, 0);
-//        g.setStroke(stroke);
-//        g.drawPolygon(t);
-
         for(int i = 0; i < 3; ++i) {
             xCoordinates[i] = widthDist + xCoordinates[i];
             yCoordinates[i] = heightDist + yCoordinates[i];
         }
+        shapeList.removeShapeInfo(shapeInfo);
         shapeList.removeIShapeFromCanvas(this);
         shapeList.removeShapeFromCanvas(paintArea);
         drawShape();
@@ -119,25 +116,23 @@ public class CreateTriangle implements IShape, IUndoable, ISelectedSubjects {
     }
 
     @Override
-    public void removeOutline() {
-        drawShape();
-    }
-
-    @Override
     public void delete() {
-        shapeList.getCanvasIShapes().remove(this);
-        shapeList.getCanvasShapes().remove(paintArea);
+        shapeList.removeIShapeFromCanvas(this);
+        shapeList.removeShapeFromCanvas(paintArea);
+        shapeList.removeShapeInfo(shapeInfo);
         paintCanvasBase.repaint();
     }
 
     @Override
     public void undo() {
-        shapeList.getCanvasIShapes().remove(2);
+        shapeList.removeIShapeFromCanvas(this);
+        shapeList.removeShapeFromCanvas(paintArea);
+        shapeList.removeShapeInfo(shapeInfo);
         paintCanvasBase.repaint();
     }
 
     @Override
     public void redo() {
-        drawShape();
+        paintCanvasBase.repaint();
     }
 }

@@ -21,7 +21,7 @@ public class PaintCanvas extends PaintCanvasBase {
 
         if(ShapeList.getCanvas().size() > 0){
             for(int i = 0; i < ShapeList.getCanvas().size(); ++i){
-                
+
                 ShapeShadingType shadingType = ShapeList.getShapeInfoList().get(i).shapeShadingType;
 
                 if(shadingType.equals(ShapeShadingType.FILLED_IN)){

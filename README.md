@@ -32,3 +32,22 @@
 #### -- Miscellaneous:
 1. Transitioned back to main branch from individual branch (ziyan-new-branch) following the announcement "Project Check-ins 3 and 4" posted on July 28th in D2L;
 2. Didn't feel good last week and the overall progress slowed down because of that.
+
+### Sprint 4:
+#### -- Bugs Encountered:
+1. Outline doesn't go away when select new shapes
+#### -- Extra Credit: N/A
+#### -- Missing Features: -
+1. Undo/Redo
+#### -- Miscellaneous:
+
+### Final Delivery:
+#### -- Bugs Encountered:
+1. Not sure why but undo/redo needs double click to work. 
+2. 
+#### -- Extra Credit: N/A
+#### -- Missing Features: -
+#### -- Miscellaneous:
+1. Delete Reconfigured - Now Fully Functional
+2. Colors for Move & Delete Added
+3. Copy & Paste Updated - Now Fully Functional

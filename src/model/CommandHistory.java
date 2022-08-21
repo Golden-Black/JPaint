@@ -17,9 +17,11 @@ public class CommandHistory {
 	public static boolean undo() {
 		boolean result = !undoStack.empty();
 		System.out.println("Undo from CommandHistory");
+		System.out.println("1");
 		if (result) {
 			IUndoable c = undoStack.pop();
 			redoStack.push(c);
+			System.out.println("2");
 			c.undo();
 		}
 		return result;
