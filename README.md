@@ -46,7 +46,8 @@
 1. Not sure why but undo/redo needs double click to work. 
 2. 
 #### -- Extra Credit: N/A
-#### -- Missing Features: -
+#### -- Missing Features: 
+1. Group: Once shapes are grouped, the outline will stick will the shapes instead of forming a square that contains the shapes.
 #### -- Miscellaneous:
 1. Delete Reconfigured - Now Fully Functional
 2. Colors for Move & Delete Added

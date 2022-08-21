@@ -119,6 +119,19 @@ public class CreateEclipse implements IShape, ISelectedSubjects, IUndoable {
         g.drawOval(referenceX, referenceY, width, height);
     }
 
+    @Override
+    public void group() {
+        shapeList.addToIShapeGroup(this);
+        shapeList.addToShapeGroup(paintArea);
+    }
+
+    @Override
+    public void unGroup() {
+        shapeList.removeFromIShapeGroup(this);
+        shapeList.removeFromShapeGroup(paintArea);
+        paintCanvasBase.repaint();
+    }
+
 
     @Override
     public void undo() {

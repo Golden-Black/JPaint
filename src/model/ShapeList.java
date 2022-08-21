@@ -10,29 +10,37 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShapeList {
-
-    // for moving
-
-
-
-    private final List<IShape> selectedObservers = new ArrayList<>();// observer
-
-    List<Shape> undoneShapes = new ArrayList<>();
-
-    // getters
-    public List<Shape> getUndoneShapes() {
-        return undoneShapes;
-    }
-
-
+    public static List <IShape> iShapesGroup = new ArrayList<>();
+    public static List <Shape> shapesGroup = new ArrayList<>();
 
     public static void group() {
-        
+        for(IShape iShape: iSelectedShapes){
+            iShape.group(); // this will add both iShape and shape to the group
+        }
     }
 
     public static void unGroup() {
-        // iShapeSelected.clear();
+        for(IShape iShape: iSelectedShapes){
+            iShape.unGroup(); // this will add both iShape and shape to the group
+        }
+
     }
+
+    public void addToIShapeGroup(IShape iShape){
+        iShapesGroup.add(iShape);
+    }
+
+    public void addToShapeGroup(Shape shape){
+        shapesGroup.add(shape);
+    }
+    public void removeFromIShapeGroup(IShape iShape){
+        iShapesGroup.remove(iShape);
+    }
+
+    public void removeFromShapeGroup(Shape shape){
+        shapesGroup.remove(shape);
+    }
+
 
 
 

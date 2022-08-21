@@ -10,8 +10,9 @@ public interface IShape {
     void copy();
     void paste();
     void move(int referenceX, int referenceY, int width, int height, int[] xCoordinates, int[] yCoordinates);
-
+    void delete();
     void updateOutline();
 
-    void delete();
+    void group();
+    void unGroup();
 }

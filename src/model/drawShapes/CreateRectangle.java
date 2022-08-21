@@ -110,6 +110,19 @@ public class CreateRectangle implements IShape, ISelectedSubjects, IUndoable {
     }
 
     @Override
+    public void group() {
+        shapeList.addToIShapeGroup(this);
+        shapeList.addToShapeGroup(paintArea);
+    }
+
+    @Override
+    public void unGroup() {
+        shapeList.removeFromIShapeGroup(this);
+        shapeList.removeFromShapeGroup(paintArea);
+        paintCanvasBase.repaint();
+    }
+
+    @Override
     public void delete() {
         shapeList.getCanvasIShapes().remove(this);
         shapeList.getCanvasShapes().remove(paintArea);
