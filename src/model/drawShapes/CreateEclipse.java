@@ -20,9 +20,9 @@ public class CreateEclipse implements IShape, ISelectedSubjects {
     int height;
     Shape paintArea;
     ShapeList shapeList;
-    Color primary;
-    Color secondary;
-    ShapeShadingType shapeShadingType;
+    public Color primary;
+    public Color secondary;
+    public ShapeShadingType shapeShadingType;
 
     public CreateEclipse(ApplicationState applicationState, PaintCanvasBase paintCanvasBase,
                          int referenceX, int referenceY, int width, int height, Shape paintArea, ShapeList shapeList) {
@@ -108,18 +108,6 @@ public class CreateEclipse implements IShape, ISelectedSubjects {
 
     public ShapeList getShapeList() {
         return shapeList;
-    }
-
-    public Color getPrimary() {
-        return primary;
-    }
-
-    public Color getSecondary() {
-        return secondary;
-    }
-
-    public ShapeShadingType getShapeShadingType() {
-        return shapeShadingType;
     }
 
     public Graphics2D getG() {

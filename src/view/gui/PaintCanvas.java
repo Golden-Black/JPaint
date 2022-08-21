@@ -22,7 +22,8 @@ public class PaintCanvas extends PaintCanvasBase {
             for(int i = 0; i < ShapeList.getCanvas().size(); ++i){
 
                 // ShapeList.getICanavs().get(i).drawShape();
-                graphics2d.draw(ShapeList.getCanvas().get(i));
+                ShapeList.getICanavs().get(i)
+                // graphics2d.draw(ShapeList.getCanvas().get(i));
             }
         }
 

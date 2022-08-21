@@ -9,7 +9,6 @@ import model.persistence.ApplicationState;
 import view.interfaces.PaintCanvasBase;
 
 import java.awt.*;
-import java.awt.geom.Ellipse2D;
 
 public class CreateRectangle implements IShape, ISelectedSubjects {
     ApplicationState applicationState;
