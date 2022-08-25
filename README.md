@@ -43,8 +43,7 @@
 
 ### Final Delivery:
 #### -- Bugs Encountered:
-1. Not sure why but undo/redo needs double click to work. 
-2. 
+1. Not sure why but undo/redo needs double click to work.
 #### -- Extra Credit: N/A
 #### -- Missing Features: 
 1. Group: Once shapes are grouped, the outline will stick will the shapes instead of forming a square that contains the shapes.
@@ -52,3 +51,14 @@
 1. Delete Reconfigured - Now Fully Functional
 2. Colors for Move & Delete Added
 3. Copy & Paste Updated - Now Fully Functional
+#### -- Design Patterns
+1. Command Pattern 
+   1. Classes: ClickHandler, CreateShapeCommand, MoveShapeCommand, SelectShapeCommand
+2. Abstract Factory Pattern
+   1. Classes: CreateEclipse, CreateRectangle, CreateTriangle
+3. Observer Pattern
+   1. Classes: ShapeList, CopyShapeList, deleteShapeList, pasteShapeList
+4. Composite Pattern
+   1. Classes: ShapeList, CreateShapeCommand, MoveShapeCommand, SelectShapeCommand
+5. Strategy Pattern
+   1. Classes: CreateEclipse, CreateRectangle, CreateTriangle
